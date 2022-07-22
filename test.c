@@ -50,5 +50,6 @@ int
 main(void) {
     test_string();
     test_os();
+    puts("OK");
     return 0;
 }
