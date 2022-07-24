@@ -1,20 +1,23 @@
 CC := gcc
 CC_FLAGS := -std=c17 -Wall -O0 -g -I .
 TEST_PROG := test.out
-OBJS := build/test.o \
-	build/np/file.o \
+LIB_PROG := libnp.so
+OBJS := build/np/file.o \
 	build/np/os.o \
 	build/np/memory.o \
 	build/np/string.o
 
-all: test
+all: test lib
 
 .PHONY: init
 init:
 	rm -rf build && mkdir build && mkdir build/np
 
-test: $(OBJS)
-	$(CC) $(CC_FLAGS) $(OBJS) -o build/$(TEST_PROG)
+test: $(OBJS) build/test.o
+	$(CC) $(CC_FLAGS) $(OBJS) build/test.o -o build/$(TEST_PROG)
+
+lib: $(OBJS)
+	$(CC) $(CC_FLAGS) -shared $(OBJS) -o build/$(LIB_PROG)
 
 build/test.o: test.c test.h
 	$(CC) $(CC_FLAGS) -c $< -o $@

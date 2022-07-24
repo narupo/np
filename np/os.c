@@ -1,20 +1,20 @@
 #include <np/os.h>
 
 static char **
-resize_array(char **ary, int32_t index, int32_t capa, int32_t byte) {
-    if (index < capa) {
+resize_array(char **ary, int32_t index, int32_t *capa, int32_t byte) {
+    if (index < *capa) {
         return ary;
     }
 
-    int32_t oldcapa = capa;
-    capa *= 2;
-    int32_t newsize = capa * byte + byte;
+    int32_t oldcapa = *capa;
+    *capa *= 2;
+    int32_t newsize = *capa * byte + byte;
     char **tmp = realloc(ary, newsize);
     if (!tmp) {
         np_free_array(ary);
         return NULL;
     }
-    for (int32_t i = oldcapa; i < capa; i++) {
+    for (int32_t i = oldcapa; i < *capa + 1; i++) {
         tmp[i] = NULL;
     }
     return tmp;
@@ -42,7 +42,7 @@ np_listdir(const char *dirpath) {
 
     struct dirent *ent;
     for (; (ent = readdir(dir)); ) {
-        ary = resize_array(ary, index, capa, byte);
+        ary = resize_array(ary, index, &capa, byte);
         char *name = np_strdup(ent->d_name);
         if (!name) {
             np_free_array(ary);

@@ -13,11 +13,22 @@ test_os_listdir(void) {
     for (char **p = files; *p; p++) {
         if (!strcmp(*p, "file1.txt") ||
             !strcmp(*p, "file2.txt") ||
-            !strcmp(*p, "file3.txt")) {
+            !strcmp(*p, "file3.txt") ||
+            !strcmp(*p, "file4.txt") ||
+            !strcmp(*p, "file5.txt") ||
+            !strcmp(*p, "file6.txt") ||
+            !strcmp(*p, "file7.txt") ||
+            !strcmp(*p, "file8.txt") ||
+            !strcmp(*p, "file9.txt") ||
+            !strcmp(*p, "file10.txt") ||
+            !strcmp(*p, "file11.txt") ||
+            !strcmp(*p, "file12.txt") ||
+            !strcmp(*p, "file13.txt") ||
+            !strcmp(*p, "file14.txt")) {
             n++;
         }
     }
-    assert(n == 3);
+    assert(n == 14);
 
     np_free_array(files);
 }
