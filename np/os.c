@@ -11,7 +11,6 @@ resize_array(char **ary, int32_t index, int32_t *capa, int32_t byte) {
     int32_t newsize = *capa * byte + byte;
     char **tmp = realloc(ary, newsize);
     if (!tmp) {
-        np_free_array(ary);
         return NULL;
     }
     for (int32_t i = oldcapa; i < *capa + 1; i++) {
@@ -43,6 +42,10 @@ np_listdir(const char *dirpath) {
     struct dirent *ent;
     for (; (ent = readdir(dir)); ) {
         ary = resize_array(ary, index, &capa, byte);
+        if (!ary) {
+            np_free_array(ary);
+            return NULL;
+        }
         char *name = np_strdup(ent->d_name);
         if (!name) {
             np_free_array(ary);
