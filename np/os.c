@@ -55,3 +55,9 @@ np_listdir(const char *dirpath) {
 #endif
     return ary;
 }
+
+bool
+np_is_exists(const char *path) {
+    struct stat buf;
+    return stat(path, &buf) == 0;
+}

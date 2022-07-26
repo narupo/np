@@ -7,9 +7,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <assert.h>
 #include <string.h>
 #include <stdint.h>
+#include <sys/stat.h>
 
 #ifdef NP_WIN
 # warning TODO

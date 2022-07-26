@@ -34,8 +34,15 @@ test_os_listdir(void) {
 }
 
 void
+test_os_is_exists(void) {
+    assert(np_is_exists("nothing") == false);
+    assert(np_is_exists("sample/listdir") == true);
+}
+
+void
 test_os(void) {
     test_os_listdir();
+    test_os_is_exists();
 }
 
 /*********

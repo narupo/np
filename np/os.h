@@ -6,3 +6,6 @@
 
 char **
 np_listdir(const char *dirpath);
+
+bool
+np_is_exists(const char *path);
